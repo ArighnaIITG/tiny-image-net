@@ -150,4 +150,16 @@ def get_next_labels(batchsize=50):
 def reset_graph(seed=42):
     tf.reset_default_graph()
     tf.set_random_seed(seed)
-    np.random.seed(seed
+    np.random.seed(seed)
+
+download_images(IMAGES_URL)
+training_images, training_labels, training_files = load_training_images(TRAINING_IMAGES_DIR, batch_size=BATCH_SIZE)
+
+shuffle_index = np.random.permutation(len(training_labels))
+training_images = training_images[shuffle_index]
+training_labels = training_labels[shuffle_index]
+training_files  = training_files[shuffle_index]
+
+le = preprocessing.LabelEncoder()
+training_le = le.fit(training_labels)
+training_labels_encoded = training_le.transform(training_labels)
