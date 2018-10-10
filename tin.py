@@ -241,6 +241,6 @@ with tf.Session() as sess:
        
         acc_train = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
         acc_test = accuracy.eval(feed_dict={X: val_images, y: val_labels_encoded})
-        print(epoch, "Train accuracy:", acc_train, "Test accuracy:", acc_test)
+        print('Train accuracy: {:.4f}, Test accuracy: {:.4f}'.format(acc_train, acc_test))
 
         save_path = saver.save(sess, "./tiny_imagenet")
