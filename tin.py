@@ -227,3 +227,20 @@ correct = tf.nn.in_top_k(logits, y, 1)
 accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
 init = tf.global_variables_initializer()
 saver = tf.train.Saver()
+
+n_epochs = 10
+batch_size = 10
+
+with tf.Session() as sess:
+    init.run()
+    for epoch in range(n_epochs):
+        for batch in get_next_batch():
+            X_batch, y_batch = batch[0], batch[1]
+            print ('Training set', X_batch.shape, y_batch.shape)
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+       
+        acc_train = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
+        acc_test = accuracy.eval(feed_dict={X: val_images, y: val_labels_encoded})
+        print(epoch, "Train accuracy:", acc_train, "Test accuracy:", acc_test)
+
+        save_path = saver.save(sess, "./tiny_imagenet")
