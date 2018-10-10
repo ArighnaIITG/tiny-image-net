@@ -163,3 +163,13 @@ training_files  = training_files[shuffle_index]
 le = preprocessing.LabelEncoder()
 training_le = le.fit(training_labels)
 training_labels_encoded = training_le.transform(training_labels)
+
+print ("First 30 Training Labels", training_labels_encoded[0:30])
+plot_objects(training_images[0:30])
+
+
+val_data = pd.read_csv(VAL_IMAGES_DIR + 'val_annotations.txt', sep='\t', header=None, names=['File', 'Class', 'X', 'Y', 'H', 'W'])
+val_images, val_labels, val_files = load_validation_images(VAL_IMAGES_DIR, val_data, batch_size=BATCH_SIZE)
+val_labels_encoded = training_le.transform(val_labels)
+plot_objects(val_images[0:30])
+print (val_labels_encoded[0:30])
