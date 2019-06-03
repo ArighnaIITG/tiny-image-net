@@ -1,2 +1,2 @@
 # tiny-image-net
-ML Code
+DL Code for the famous TinyImageNet dataset
